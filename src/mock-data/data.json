@@ -2267,6 +2267,20 @@
       "percentageChange": -0.47,
       "volume": 13786034,
       "change": -185.27
+    },
+    {
+      "date": "2021-01-01T01:01:01.063-05:00",
+      "price": 40000.58,
+      "percentageChange": -0.47,
+      "volume": 13786034,
+      "change": -185.27
+    },
+    {
+      "date": "2021-02-01T01:01:01.063-05:00",
+      "price": 39100.58,
+      "percentageChange": -0.47,
+      "volume": 13786034,
+      "change": -185.27
     }
   ]
 

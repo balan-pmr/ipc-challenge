@@ -27,6 +27,7 @@ const IPCGraph = (props: IPCGraphProps) => {
         <>
             <LineGraph labels={x} data={y} title='IPC Indicator Dashboard' tooltipLabel="IPC" />
             <div>
+                <label>Choose a filter: </label><br/>
                 <Select label="Year" id="year" options={yearsOptions} onChange={onChangeYear} />
                 <Select label="Month" id="month" options={monthsOptions} onChange={onChangeMonth} />
                 <Select label="Day" id="day" options={daysOptions} onChange={onChangeDay} />
