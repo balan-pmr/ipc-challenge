@@ -21,23 +21,25 @@ ChartJS.register(
     Legend
 );
 
-const LineGraph = () => {
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'vaca', 'pollito'];
+
+interface LineGraphProps {
+    labels: Array<string>;
+    data: Array<number>;
+    title: string;
+    tooltipLabel: string;
+}
+
+
+const LineGraph = (props:LineGraphProps) => {
+    
     const data = {
-        labels,
+        labels: props.labels,
         datasets: [
             {
-                label: 'My First Dataset 1',
-                data: [300, 500, 10, 200, 30, 440, 530, 20, 200],
+                label: props.tooltipLabel,
+                data: props.data,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            },
-            {
-                label: 'My First Dataset 2',
-                data: [440, 530, 20, 200, 300, 500, 10, 200, 30],
-                fill: false,
-                borderColor: 'red',
                 tension: 0.1
             }
         ]
@@ -51,12 +53,12 @@ const LineGraph = () => {
             },
             title: {
                 display: true,
-                text: 'IPC Indicator Dashboard',
+                text: props.title,
             },
         },
     };
 
-    return (<Line data={data} options={options} />)
+    return <Line data={data} options={options} />
 }
 
 export default LineGraph;
