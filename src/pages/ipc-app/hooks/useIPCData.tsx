@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { IIPC } from "pages/ipc-app/models/ipc.model";
 import { filterDataByDay, filterDataByHour, filterDataByMonth, filterDataByYear } from "../utils/utils";
 import { DEFAULT_VALUES, IPC_VALUES } from "components/enums/enums";
@@ -12,8 +12,7 @@ const useIPCData = (data: Array<IIPC>): any => {
     const [monthsOptions, setMonthsOptions] = useState<Array<number> | []>([])
     const [daysOptions, setDaysOptions] = useState<Array<number> | []>([])
     const [hoursOptions, setHoursOptions] = useState<Array<number> | []>([])
-    const [reloadCatalogs, setReloadCatalogs] = useState<boolean>(false)
-    const filteredDataRef = useRef<Array<IIPC>>(data);
+    const [filteredData, setFilteredData] = useState<Array<IIPC>>([])
     const [hourSelected, setHourSelected] = useState<string>('')
     const [daySelected, setDaySelected] = useState<string>('')
     const [monthSelected, setMonthSelected] = useState<string>('')
@@ -55,19 +54,19 @@ const useIPCData = (data: Array<IIPC>): any => {
 
                 allData = [...newData];
             }
-            filteredDataRef.current = allData;
-            setReloadCatalogs(prev => prev = !prev)
+            setFilteredData(allData);
         }
         if (data.length > 0) { applyFilter() }
 
-    }, [setReloadCatalogs,
+    }, [setFilteredData,
         yearSelected, monthSelected, daySelected, hourSelected, data]);
 
 
     useEffect(() => {
         async function createOptions() {
             // Setting options for filtering
-            let data = filteredDataRef.current;
+            //console.log('Setting options for filtering')
+            let data = filteredData;
             setX(data.map(ipc => ipc.date.toLocaleString()))
             setY(data.map(ipc => ipc[categorySelected]))
             const years: Array<number> = data.map(ipc => ipc.date.getFullYear())
@@ -86,7 +85,7 @@ const useIPCData = (data: Array<IIPC>): any => {
         }
         if (data.length > 0) { createOptions() }
     }, [setX, setY, setYearsOptions, setMonthsOptions, setDaysOptions, setHoursOptions, setCategoryOptions,
-        data, categorySelected, reloadCatalogs])
+        data, categorySelected, filteredData])
 
 
     useEffect(() => {
@@ -94,6 +93,7 @@ const useIPCData = (data: Array<IIPC>): any => {
             //console.log('Unmounting IPC Graph')
         }
     }, [])
+
 
     return {
         x, y, yearsOptions, monthsOptions, daysOptions, hoursOptions, categoryOptions,

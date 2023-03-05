@@ -23,22 +23,27 @@ const IPCGraph = (props: IPCGraphProps) => {
     } = useIPCData(props.data);
 
 
-    return (
-        <>
-            <div>
-                <label>Select a category for x Axis </label><br />
-                <Select label="category" id="category" options={categoryOptions} defaultValue={categoryOptions[0]} onChange={onChangeCategory} />
-            </div>
-            <LineGraph labels={x} data={y} title='IPC Indicator Dashboard' tooltipLabel="IPC" />
-            <div>
-                <label>Date filters: </label><br />
-                <Select label="Year" id="year" options={yearsOptions} onChange={onChangeYear} />
-                <Select label="Month" id="month" options={monthsOptions} onChange={onChangeMonth} />
-                <Select label="Day" id="day" options={daysOptions} onChange={onChangeDay} />
-                <Select label="Hour" id="hour" options={hoursOptions} onChange={onChangeHour} />
-            </div>
-        </>
-    )
+    if (props.data.length === 0) { return (<div>No IPC data to graph.</div>) }
+    else {
+
+        return (
+            <>
+                <div>
+                    <label>Select a category for x Axis </label><br />
+                    <Select label="category" id="category" options={categoryOptions} defaultValue={categoryOptions[0]} onChange={onChangeCategory} />
+                </div>
+                <LineGraph labels={x} data={y} title='IPC Indicator Dashboard' tooltipLabel="IPC" />
+                <div>
+                    <label>Date filters: </label><br />
+                    <Select label="Year" id="year" options={yearsOptions} onChange={onChangeYear} />
+                    <Select label="Month" id="month" options={monthsOptions} onChange={onChangeMonth} />
+                    <Select label="Day" id="day" options={daysOptions} onChange={onChangeDay} />
+                    <Select label="Hour" id="hour" options={hoursOptions} onChange={onChangeHour} />
+                </div>
+            </>
+        )
+    }
+
 
 }
 

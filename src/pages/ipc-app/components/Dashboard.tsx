@@ -1,19 +1,21 @@
 
 import IPCGraph from './IPC.graph';
-
-import { useIPCLoadAPIData} from '../hooks/useIPCLoadData';
+import {useIPCLoadAPIData} from '../hooks/useIPCLoadData';
 
 const Dashboard =  () => {
 
-    // useIPCLoadMockData or useIPCLoadAPIData
     const { result, onReLoadData} = useIPCLoadAPIData();
+    
+    const IPCGraphComponent = result && result.length>=0 ? <IPCGraph data={result} />:<></>;
+
+    const classForButton = result && result.length >=0 ? "button-active":"button-inactive";
     
     return (
         <div>
             <div>
-                <button onClick={ e => {onReLoadData(e);} } > Reload IPC Data</button>
+                <button className={classForButton} onClick={ e => {onReLoadData(e);} } > Reload IPC Data</button>
             </div>
-            { result.length === 0? <div>No IPC data to graph.</div> : <IPCGraph data={result} /> } 
+            {IPCGraphComponent}
         </div>
     )
 

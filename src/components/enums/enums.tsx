@@ -7,3 +7,8 @@ export enum IPC_VALUES {
     VOLUME = 'volume',
     CHANGE = 'change'
 }
+
+export enum ALERT_TYPES{
+    INFO,
+    ERROR
+}

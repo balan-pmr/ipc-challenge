@@ -5,36 +5,42 @@ import { IIPC } from "pages/ipc-app/models/ipc.model";
 
 export const useIPCLoadAPIData =  (): any=> {
     const[result, setResult]= useState< Array<IIPC> >([]);
-    const[reaload, setReload]= useState<boolean >(false);
     
-    const onReLoadData = (e:any) =>{
+    const onReLoadData = async (e:any) =>{
         e.preventDefault();
-        //console.log('onReLoadData')
         setResult([])
-        setReload( prev => !prev);
+        await executeAPICall()
     }
 
     useEffect(() => {
-        const execute = async () => {
-            let url: string | undefined = process.env.REACT_APP_URL_GET_IPC;
-            if(url !== undefined){
-                fetch(url).then( res => res.json() ).then(data => setResult(IPCAPIAdapter(data)) )
-            }else{
-                console.error('No URL for getting IPC data.')
-                setResult([])
-            }            
-        }
-        execute()
-    }, [setResult, reaload]);
+        (async () => { await executeAPICall ();})();
+    }, []);
+
+    const executeAPICall = async () => {
+        let url: string | undefined = process.env.REACT_APP_URL_GET_IPC;
+        if(url !== undefined){
+            fetch(url).then( res => res.json() ).then(data => setResult(IPCAPIAdapter(data)) )
+        }else{
+            console.error('No URL for getting IPC data.')
+            setResult([])
+        }            
+    }
 
     return { result, onReLoadData }
 }
 
 export const useIPCLoadMockData = (): any   => {
+
+    const onReLoadData =  (e:any) =>{ 
+        setResult(prev => prev=[])
+        let interval = setInterval(()=>{  setResult(prev => prev=IPCMockAdapter(json) ); clearInterval(interval); }, 500)
+    } 
+
     const[result, setResult]= useState< Array<IIPC> >([]);
-    useEffect(() => {
-       setResult(IPCMockAdapter(json))
-    }, [setResult]);
-    return { result }
+    
+    useEffect(() => { setResult(IPCMockAdapter(json)) }, []);
+
+    return { result , onReLoadData }
+
 }
 
