@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { IIPC } from "pages/ipc-app/models/ipc.model";
 import { filterDataByDay, filterDataByHour, filterDataByMonth, filterDataByYear } from "../utils/utils";
-import { DEFAULT_VALUES } from "components/fields/enums";
+import { DEFAULT_VALUES, IPC_VALUES } from "components/enums/enums";
 
 const useIPCData = (data: Array<IIPC>): any => {
 
@@ -18,65 +18,58 @@ const useIPCData = (data: Array<IIPC>): any => {
     const [daySelected, setDaySelected] = useState<string>('')
     const [monthSelected, setMonthSelected] = useState<string>('')
     const [yearSelected, setYearSelected] = useState<string>('')
-    
+    const [categoryOptions, setCategoryOptions] = useState<Array<string> | []>([])
+    const [categorySelected, setCategorySelected] = useState<IPC_VALUES>(IPC_VALUES.PRICE)
 
-    const onChangeYear = (value:string) => { 
-        setYearSelected(value)
-     }
 
-    const onChangeMonth = (value:string) => {
-        setMonthSelected(value)
-    }
-    const onChangeDay = (value:string) => {
-        setDaySelected(value)
-    }
-    
-    const onChangeHour = (value:string) => {
-        setHourSelected(value)
-    }
+    const onChangeCategory = (value: IPC_VALUES) => { setCategorySelected(value) }
+
+    const onChangeYear = (value: string) => { setYearSelected(value) }
+
+    const onChangeMonth = (value: string) => { setMonthSelected(value) }
+
+    const onChangeDay = (value: string) => { setDaySelected(value) }
+
+    const onChangeHour = (value: string) => { setHourSelected(value) }
 
     useEffect(() => {
         const applyFilter = async () => {
             let allData: Array<IIPC> = [...data];
+            //console.log({yearSelected, monthSelected, daySelected, hourSelected})
             if (yearSelected !== DEFAULT_VALUES.SELECT) { // apply filter
-                const { filteredX, filteredY, newData } = filterDataByYear(allData, yearSelected)
-                setX(filteredX)
-                setY(filteredY)
+                const { newData } = filterDataByYear(allData, yearSelected)
+
                 allData = [...newData];
-            } 
+            }
             if (monthSelected !== DEFAULT_VALUES.SELECT) {
-                const { filteredX, filteredY, newData } = filterDataByMonth(allData, monthSelected)
-                setX(filteredX)
-                setY(filteredY)
+                const { newData } = filterDataByMonth(allData, monthSelected)
                 allData = [...newData];
-            } 
-            if (daySelected !== DEFAULT_VALUES.SELECT) { 
-                const { filteredX, filteredY, newData } = filterDataByDay(allData, daySelected)
-                setX(filteredX)
-                setY(filteredY)
+            }
+            if (daySelected !== DEFAULT_VALUES.SELECT) {
+                const { newData } = filterDataByDay(allData, daySelected)
+
                 allData = [...newData];
-            } 
-            if (hourSelected !== DEFAULT_VALUES.SELECT) { 
-                const { filteredX, filteredY, newData } = filterDataByHour(allData, hourSelected)
-                setX(filteredX)
-                setY(filteredY)
+            }
+            if (hourSelected !== DEFAULT_VALUES.SELECT) {
+                const { newData } = filterDataByHour(allData, hourSelected)
+
                 allData = [...newData];
             }
             filteredDataRef.current = allData;
             setReloadCatalogs(prev => prev = !prev)
         }
-        applyFilter()
-    }, [yearSelected,monthSelected,daySelected,hourSelected,
-        setX, setY, setReloadCatalogs]);
+        if (data.length > 0) { applyFilter() }
 
+    }, [setReloadCatalogs,
+        yearSelected, monthSelected, daySelected, hourSelected, data]);
 
 
     useEffect(() => {
-        async function processData() {
+        async function createOptions() {
             // Setting options for filtering
             let data = filteredDataRef.current;
             setX(data.map(ipc => ipc.date.toLocaleString()))
-            setY(data.map(ipc => ipc.price))
+            setY(data.map(ipc => ipc[categorySelected]))
             const years: Array<number> = data.map(ipc => ipc.date.getFullYear())
             const ySet = new Set<number>(years);
             setYearsOptions(Array.from(ySet))
@@ -89,17 +82,26 @@ const useIPCData = (data: Array<IIPC>): any => {
             const hours: Array<number> = data.map(ipc => ipc.date.getHours())
             const hSet = new Set<number>(hours);
             setHoursOptions(Array.from(hSet))
+            setCategoryOptions([IPC_VALUES.PRICE, IPC_VALUES.PERCENTAGE_CHANGE, IPC_VALUES.VOLUME, IPC_VALUES.CHANGE]);
         }
-        processData();
-    }, [setX, setY, setYearsOptions, setMonthsOptions, setDaysOptions, setHoursOptions, 
-        reloadCatalogs])
+        if (data.length > 0) { createOptions() }
+    }, [setX, setY, setYearsOptions, setMonthsOptions, setDaysOptions, setHoursOptions, setCategoryOptions,
+        data, categorySelected, reloadCatalogs])
+
+
+    useEffect(() => {
+        return () => {
+            //console.log('Unmounting IPC Graph')
+        }
+    }, [])
 
     return {
-        x, y, yearsOptions, monthsOptions, daysOptions, hoursOptions,
+        x, y, yearsOptions, monthsOptions, daysOptions, hoursOptions, categoryOptions,
         onChangeYear,
         onChangeMonth,
         onChangeDay,
-        onChangeHour
+        onChangeHour,
+        onChangeCategory
     }
 }
 
