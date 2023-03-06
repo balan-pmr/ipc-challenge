@@ -29,16 +29,16 @@ const IPCGraph = (props: IPCGraphProps) => {
         return (
             <>
                 <div>
-                    <label>Select a category for x Axis </label><br />
-                    <Select label="category" id="category" options={categoryOptions} defaultValue={categoryOptions[0]} onChange={onChangeCategory} />
+                    <label><h3>Select a category for x Axis</h3> </label>
+                    <Select label="" id="category" options={categoryOptions} defaultValue={categoryOptions[0]} onChange={onChangeCategory} />
                 </div>
                 <LineGraph labels={x} data={y} title='IPC Indicator Dashboard' tooltipLabel="IPC" />
-                <div>
-                    <label>Date filters: </label><br />
-                    <Select label="Year" id="year" options={yearsOptions} onChange={onChangeYear} />
-                    <Select label="Month" id="month" options={monthsOptions} onChange={onChangeMonth} />
-                    <Select label="Day" id="day" options={daysOptions} onChange={onChangeDay} />
-                    <Select label="Hour" id="hour" options={hoursOptions} onChange={onChangeHour} />
+                <div className='table-content'>
+                    <label><h3>Date filters</h3> </label>
+                    <Select label="Year:" id="year" options={yearsOptions} onChange={onChangeYear} />
+                    <Select label="Month:" id="month" options={monthsOptions} onChange={onChangeMonth} />
+                    <Select label="Day:" id="day" options={daysOptions} onChange={onChangeDay} />
+                    <Select label="Hour:" id="hour" options={hoursOptions} onChange={onChangeHour} />
                 </div>
             </>
         )

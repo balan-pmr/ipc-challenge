@@ -5,12 +5,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
     color: grey;
-    background-color: rgb(238, 235, 235);
+    background-color: #1b1a1a;
 }
 
 
 
- 
 /* SELECT FIELD  whitesmoke rgb(24 32 32)*/
 
 select {
@@ -27,19 +26,25 @@ select {
  .alert-info{
     background: cornflowerblue;
     width: auto;
-    padding: 10px 5px 10px 5px;
-    border-radius: 15px;
+    padding: 5px;
+    border-radius: 3px;
     font-size: 16px;
     color:black;
+    display: grid !important;
+    place-items: center;
+    margin-top: 5px;
  }
 
  .alert-error{
     background: rgb(58, 5, 5);
     width: auto;
-    padding: 10px 5px 10px 5px;
-    border-radius: 15px;
+    padding: 5px;
+    border-radius: 3px;
     font-size: 16px;
     color:white;
+    display: grid !important;
+    place-items: center;
+    margin-top: 5px;
  }
   
 
@@ -66,3 +71,81 @@ select {
  }
   
   
+
+
+
+
+
+.nav-outer-wrapper {
+   /*background-color: yellow;*/
+   background-color: rgb(39 56 50);
+   width:  100%;
+     box-shadow:5px 2px #423d3d;
+}
+
+.nav-main-wrapper {
+   background-color: transparent;
+   /*width: 800px;*/
+   display: flex;
+   flex-direction: unset;
+   margin-left: auto;
+   margin-right: auto;
+   position: relative;
+}
+
+.nav-bar {
+   justify-content: space-around;
+   margin-top: 15px;
+   margin-bottom: 15px;
+   border-radius: 5px;
+   /*margin-right: 10px;*/
+}
+
+
+
+a {
+   color:white;
+   background-color: transparent;
+   text-decoration: none;
+   margin: 10px;
+ }
+
+
+
+/* CSS LAYOUT */
+ .outer-wrapper {
+   background-color: #212121;
+   width:  100%;
+}
+
+.main-wrapper {
+   /**background-color: blue;*/
+   width: 90%;
+   display: flex;
+   flex-direction: column;
+   margin-left: auto;
+   margin-right: auto;
+   position: relative;
+}
+
+.main-content {
+ background-color: transparent;
+ /*display: grid !important;
+ place-items: center;*/
+}
+
+.footer {
+ background-color: transparent;
+     margin-top: 5px;
+}
+
+
+.center-content {
+   display: grid !important;
+   place-items: center;
+}
+
+.table-content{
+   display: table-caption
+}
+

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { IIPC } from "pages/ipc-app/models/ipc.model";
 import { filterDataByDay, filterDataByHour, filterDataByMonth, filterDataByYear } from "../utils/utils";
-import { DEFAULT_VALUES, IPC_VALUES } from "components/enums/enums";
+import { DEFAULT_VALUES, IPC_VALUES } from "models/enums";
 
 const useIPCData = (data: Array<IIPC>): any => {
 
