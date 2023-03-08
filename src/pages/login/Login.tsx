@@ -1,9 +1,9 @@
 import Alert from "components/alerts/Alert";
 import useLogin from "./hooks/useLogin";
 
-const Login = ( {setLogged}: { setLogged:any } ) => {
-
-    const { message, user, setUser, password, setPassword, onSubmit} = useLogin(setLogged);
+const Login = () => {
+    
+    const { message, user, setUser, password, setPassword, onSubmit} = useLogin();
 
     return (
         <>

@@ -1,10 +1,13 @@
 import { AlertProps } from "components/alerts/Alert";
+import { AuthContext } from "context/Auth.Context";
 import { ALERT_TYPES } from "models/enums";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const useLogin = ( setLogged:any) =>{
+const useLogin = ( ) =>{
 
+    const { setLogged, setAdmin } = useContext(AuthContext);
+    
     const[message, setMessage]= useState<AlertProps>({message:'',type:ALERT_TYPES.INFO});
     const[user, setUser] = useState<string>('');
     const[password, setPassword] = useState<string>('');
@@ -12,7 +15,6 @@ const useLogin = ( setLogged:any) =>{
 
     const onSubmit = async (e:any) => {
         e.preventDefault();
-        //console.log({user,password})
         if(user === '' || password === '' ){
             setMessage({ message: 'No user or password in form.', type: ALERT_TYPES.ERROR })
         }else{
@@ -22,17 +24,16 @@ const useLogin = ( setLogged:any) =>{
 
     const onSubmitUserAndPassword = async () => {
         setMessage({ message: 'Validating credentials, please wait.', type: ALERT_TYPES.INFO })
-        //let baseUrl: string | undefined = process.env.REACT_APP_BASE_URL_API;
-        let url: string = 'https://script.google.com/macros/s/AKfycbwG0EdkIhGt_CvTN0LDbzYRCIWEBjyxp6QwSc5ifNnueKNmasc0FgOZtyXS1CrF6v1gdA/exec';
-        let action: string = '?action=login';
-        //if (baseUrl && action) { url = baseUrl + action }
-        await fetch(url + action, {method: 'POST', body: JSON.stringify({ password: password, user: user })})
+        let baseUrl: string | undefined = process.env.REACT_APP_BASE_URL_API;
+        let action: string | undefined = process.env.REACT_APP_ACTION_LOGN
+        let url: string = '';
+        if (baseUrl && action) { url = baseUrl + action }
+        await fetch(url, {method: 'POST', body: JSON.stringify({ password: password, user: user })})
             .then(res => res.json())
             .then((result) => {
-                console.log({ result })
                 if(result.code === 200 && result.message === 'OK' ){
                     setLogged(true)
-                    //console.log('valid user -> redirecting to dashboard')
+                    setAdmin(result.isAdmin)
                     navigate("/dashboard");
                 }else
                 if(result.code === 200 && result.message !== 'OK' ){

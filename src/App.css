@@ -174,3 +174,7 @@ input {
   /* background-color: rgb(250, 194, 194);*/
    border-radius: 0 0 10px 10px;
  }
+ input:disabled {
+   color: white;
+ 
+}

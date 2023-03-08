@@ -23,7 +23,7 @@ export const useIPCLoadAPIData =  (): any=> {
         setMessage({message:'Loading...',type:ALERT_TYPES.INFO})
         let url: string | undefined = process.env.REACT_APP_URL_GET_IPC;
         if (url !== undefined) {
-            fetch(url).then(res => res.json()).then(data => {
+           return fetch(url).then(res => res.json()).then(data => {
                 setResult(IPCAPIAdapter(data))
                 setMessage({message:'',type:ALERT_TYPES.INFO})
             }).catch((error) => {

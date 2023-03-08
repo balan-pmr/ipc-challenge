@@ -1,10 +1,12 @@
+import { AuthContext } from "context/Auth.Context";
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 interface SecureRouteProps {
-    children: JSX.Element,
-    isLogged: boolean
+    children: JSX.Element
 }
 const SecureRoute = (props: SecureRouteProps) => {
-    return props.isLogged ? (props.children) : <Navigate to="/" replace />;
+    const { logged } = useContext(AuthContext);
+    return logged ? (props.children) : <Navigate to="/" replace />;
 };
 
 export default SecureRoute;
