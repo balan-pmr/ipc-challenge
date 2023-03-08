@@ -1,5 +1,5 @@
 import LineGraph from "components/graphs/Line.Graph"
-import { IIPC } from "pages/ipc-app/models/ipc.model";
+import { IIPC, IIPCCategory } from "pages/ipc-app/models/ipc.model";
 import useIPCData from "../hooks/useIPCData";
 import Select from "components/fields/Select";
 
@@ -14,12 +14,13 @@ const IPCGraph = (props: IPCGraphProps) => {
     const {
         x,
         y,
-        yearsOptions, monthsOptions, daysOptions, hoursOptions, categoryOptions,
+        yearsOptions, monthsOptions, daysOptions, hoursOptions, categoryOptions, showAllCategories,dataCategories,
         onChangeYear,
         onChangeMonth,
         onChangeDay,
         onChangeHour,
-        onChangeCategory
+        onChangeCategory,
+        onShowAllCategories
     } = useIPCData(props.data);
 
 
@@ -29,10 +30,21 @@ const IPCGraph = (props: IPCGraphProps) => {
         return (
             <>
                 <div>
-                    <label><h3>Select a category for x Axis</h3> </label>
-                    <Select label="" id="category" options={categoryOptions} defaultValue={categoryOptions[0]} onChange={onChangeCategory} />
+                    {!showAllCategories && <>
+                        <label><h3>Select a category for x Axis</h3> </label>
+                        <Select label="" id="category" options={categoryOptions} defaultValue={categoryOptions[0]} onChange={onChangeCategory}/>
+                    </>}
+                    <label><h3>Select view for all categories:</h3> </label>
+                    <input type="radio" id='all' value="all" checked={showAllCategories} onClick={e => { onShowAllCategories(e) }} onChange={e => { }} />
+                    <label htmlFor="all">Show all categories</label><br></br>
                 </div>
-                <LineGraph labels={x} data={y} title='IPC Indicator Dashboard' tooltipLabel="IPC" />
+                {!showAllCategories && <LineGraph labels={x} data={y} title='IPC Indicator Dashboard' tooltipLabel="IPC" />}
+                {showAllCategories && (<div className="cards">
+                    {
+                        dataCategories.map( (category:IIPCCategory, index:number) => (<LineGraph key={index} labels={x} data={category.yData} title={'IPC Indicator'} tooltipLabel={category.category} /> ) )
+                    }
+                </div>
+                )}
                 <div className='table-content'>
                     <label><h3>Date filters</h3> </label>
                     <Select label="Year:" id="year" options={yearsOptions} onChange={onChangeYear} />

@@ -1,6 +1,6 @@
 
-import { useEffect, useState } from "react";
-import { IIPC } from "pages/ipc-app/models/ipc.model";
+import { useEffect, useMemo, useState } from "react";
+import { IIPC, IIPCCategory } from "pages/ipc-app/models/ipc.model";
 import { filterDataByDay, filterDataByHour, filterDataByMonth, filterDataByYear } from "../utils/utils";
 import { DEFAULT_VALUES, IPC_VALUES } from "models/enums";
 
@@ -17,9 +17,10 @@ const useIPCData = (data: Array<IIPC>): any => {
     const [daySelected, setDaySelected] = useState<string>('')
     const [monthSelected, setMonthSelected] = useState<string>('')
     const [yearSelected, setYearSelected] = useState<string>('')
-    const [categoryOptions, setCategoryOptions] = useState<Array<string> | []>([])
+    //const [categoryOptions, setCategoryOptions] = useState<Array<string> | []>([])
     const [categorySelected, setCategorySelected] = useState<IPC_VALUES>(IPC_VALUES.PRICE)
-
+    const [showAllCategories, setShowAllCategories] = useState<boolean>(false)
+    const categoryOptions = useMemo(()=>{ return [IPC_VALUES.PRICE, IPC_VALUES.PERCENTAGE_CHANGE, IPC_VALUES.VOLUME, IPC_VALUES.CHANGE] },[]);
 
     const onChangeCategory = (value: IPC_VALUES) => { setCategorySelected(value) }
 
@@ -30,6 +31,8 @@ const useIPCData = (data: Array<IIPC>): any => {
     const onChangeDay = (value: string) => { setDaySelected(value) }
 
     const onChangeHour = (value: string) => { setHourSelected(value) }
+
+
 
     useEffect(() => {
         const applyFilter = async () => {
@@ -81,10 +84,10 @@ const useIPCData = (data: Array<IIPC>): any => {
             const hours: Array<number> = data.map(ipc => ipc.date.getHours())
             const hSet = new Set<number>(hours);
             setHoursOptions(Array.from(hSet))
-            setCategoryOptions([IPC_VALUES.PRICE, IPC_VALUES.PERCENTAGE_CHANGE, IPC_VALUES.VOLUME, IPC_VALUES.CHANGE]);
+            //setCategoryOptions([IPC_VALUES.PRICE, IPC_VALUES.PERCENTAGE_CHANGE, IPC_VALUES.VOLUME, IPC_VALUES.CHANGE]);
         }
         if (data.length > 0) { createOptions() }
-    }, [setX, setY, setYearsOptions, setMonthsOptions, setDaysOptions, setHoursOptions, setCategoryOptions,
+    }, [setX, setY, setYearsOptions, setMonthsOptions, setDaysOptions, setHoursOptions,
         data, categorySelected, filteredData])
 
 
@@ -94,14 +97,28 @@ const useIPCData = (data: Array<IIPC>): any => {
         }
     }, [])
 
+    const dataCategories = useMemo( ():Array<IIPCCategory> =>{
+        if(filteredData.length > 0){
+            let dataCategory: Array<IIPCCategory> = categoryOptions.map((category)=> ({ category: category, yData : filteredData.map(ipc => ipc[category]) }) )
+            return dataCategory;
+        }else{
+            return []
+        }
+    },[filteredData ,categoryOptions])   
+
+
+    const onShowAllCategories = (e:any) => {
+        setShowAllCategories( !showAllCategories )
+    }
 
     return {
-        x, y, yearsOptions, monthsOptions, daysOptions, hoursOptions, categoryOptions,
+        x, y, yearsOptions, monthsOptions, daysOptions, hoursOptions, categoryOptions, showAllCategories,dataCategories,
         onChangeYear,
         onChangeMonth,
         onChangeDay,
         onChangeHour,
-        onChangeCategory
+        onChangeCategory,
+        onShowAllCategories
     }
 }
 

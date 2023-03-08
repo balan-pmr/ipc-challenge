@@ -18,3 +18,8 @@ export interface IIPCMockList {
     result: Array<IIPCResponse>
 }
 
+
+export interface IIPCCategory {
+    category: string;
+    yData: Array<number>;
+}

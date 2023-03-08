@@ -178,3 +178,26 @@ input {
    color: white;
  
 }
+
+
+.cards {
+   max-width: 800px;
+   /*margin: 0 auto;*/
+   display: grid;
+   gap: 1rem;
+
+ }
+
+ 
+ /* Is the screen larger than 300 pixels? Make it one columns.
+ */
+ @media (min-width: 900px) {
+   .cards { grid-template-columns: repeat(1, 1fr); }
+ }
+
+  /* Is the screen larger than 900 pixels? Make it two columns.
+ */
+ @media (min-width: 1000px) {
+   .cards {    grid-template-columns: repeat(2, 1fr); }
+ }
+
