@@ -15,7 +15,7 @@ function App() {
   return (
     <>  
     <AuthContext.Provider value={useAuth()}>
-    <BrowserRouter>
+    <BrowserRouter basename={'/ipc-challenge'}  >
       <div className='outer-wrapper'>
         <div className='main-wrapper'>
           <div className='nav-bar'>

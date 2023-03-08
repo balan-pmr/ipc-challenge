@@ -6,6 +6,10 @@ This project is the solution for IPC Challange requirements.
 
 Application is up, you can access with this link: 
 
+```sh
+https://balan-pmr.github.io/ipc-challenge/
+```
+
 User and password for initial users are shared into an email.
 
 # Application's Screenshots 
