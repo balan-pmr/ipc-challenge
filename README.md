@@ -1,46 +1,82 @@
-# Getting Started with Create React App
+# Project for IPC Challange
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is the solution for IPC Challange requirements.
 
-## Available Scripts
+# TEST MY SOLUTION
 
-In the project directory, you can run:
+Application is up, you can access with this link: 
 
-### `npm start`
+User and password for initial users are shared into an email.
+
+# Application's Screenshots 
+
+You can see some screenshots in the link below:
+https://docs.google.com/document/d/e/2PACX-1vSflu92IBOUBmq6clthYVRfPEiEd6ML_8QMtTbFhmcwW1yI-hMJhm9_fBoHtUALuTFHCcV-9od3vDRH/pub
+
+# LEVELS COMPLETED
+
+LEVEL ONE: COMPLETED
+LEVEL TWO: PARTIAL COMPLETED*
+
+Note: Authentication by user and password is working in a mock api services, so be gently in order to test the login and admin operations. oAUTH 2 was evaluated but, because of the admin flows time could not be integrated.
+
+# FEATURES
+- This applications runs in local the same as in the url shared.
+- It has a user/password authentication
+- Full responsive app with the necessary CSS
+- Timeout session after 2 minutos 
+- Multiple category options to present IPC Data
+- Multiple time filters to present IPC Data
+- Multiples Grphs in order to compare all the categoris at the same time in the same range of time
+- Administration page for updating password to locked users
+
+# Technical Description
+
+- This project was made with React and Typescript template with the next command:
+
+```sh
+npx create-react-app my-app --template typescript
+```
+
+- The reason for using TS was a very recomended to use in order to type data and is vere useful for testing and autocomplete into IDE.
+
+- Application is using hooks, customHooks, context and fetch for API calls.
+- Routing is configured in order to protect resources depending the rol (admin, non-
+
+
+# Folder Description
+
+- adapters: Ensure data will work with a typed template and not depending with a specific source, any other connection can be set here
+- components: Components can be used in any part of the project
+- context: List all the context hook using in the project
+- models: Interfaces definitions for strong data typed used for Typescript
+- pages: All the components for bussiness logic
+- utils: Utils functions
+
+# Testing
+
+Before running this project is a must to execute App.test.tsx with the next command:
+
+```sh
+npm test
+```
+
+# Instructions on how to build/run the app
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```sh
+npm start
+```
 
-### `npm test`
+# External Libraries
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+ "chart.js": "^4.2.1"
+```
 
-### `npm run build`
+# Enjoy!
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Thanks for reading until the end, hope you like it!.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
