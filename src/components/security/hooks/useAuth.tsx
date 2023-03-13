@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const useAuth = () => {
-    const [logged, setLogged] = useState(false);
+    const [logged, setLogged] = useState(true);
     const [admin, setAdmin] = useState(false);
     const interval = useRef<any>();
 

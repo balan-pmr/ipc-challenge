@@ -23,7 +23,7 @@ function App() {
           </div>
           <div className='main-content'>
           <Routes>
-              <Route index element={<Login/>} />            
+              <Route index element={<Dashboard/>} />            
               <Route path='dashboard' element={ <SecureRoute children={<Dashboard />} />  } />
               <Route path="admin" element={ <SecureRoute  children={ <AdminUsers/> } />  } />
               <Route path="*" element={<p>There's nothing here - 404 path not found.</p>} />  
