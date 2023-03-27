@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ipc-challenge/static/css/main.32dd25fd.css",
-    "main.js": "/ipc-challenge/static/js/main.63d9976d.js",
+    "main.js": "/ipc-challenge/static/js/main.810642b3.js",
     "static/js/787.3a0656e8.chunk.js": "/ipc-challenge/static/js/787.3a0656e8.chunk.js",
     "index.html": "/ipc-challenge/index.html",
     "main.32dd25fd.css.map": "/ipc-challenge/static/css/main.32dd25fd.css.map",
-    "main.63d9976d.js.map": "/ipc-challenge/static/js/main.63d9976d.js.map",
+    "main.810642b3.js.map": "/ipc-challenge/static/js/main.810642b3.js.map",
     "787.3a0656e8.chunk.js.map": "/ipc-challenge/static/js/787.3a0656e8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.32dd25fd.css",
-    "static/js/main.63d9976d.js"
+    "static/js/main.810642b3.js"
   ]
 }
